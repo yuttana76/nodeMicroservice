@@ -73,7 +73,6 @@ module.exports = (app, channel) => {
 
       // PublishMessage(channel, USER_BINDING_KEY, JSON.stringify(data));
       sendMessage(USER_BINDING_KEY, JSON.stringify(data));
-      sendMessage(ORDER_BINDING_KEY, JSON.stringify(data));
 
       return res.status(200).json(data.data.product);
     } catch (err) {
