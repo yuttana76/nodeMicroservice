@@ -1,5 +1,6 @@
 const ProductService = require("../services/product-service");
 const { PublishMessage } = require("../utils");
+const { sendMessage } = require("../utils/kafka-produce");
 const UserAuth = require("./middlewares/auth");
 const { ORDER_BINDING_KEY, USER_BINDING_KEY } = require("../config");
 
@@ -69,7 +70,10 @@ module.exports = (app, channel) => {
         { productId: req.body._id },
         "ADD_TO_WISHLIST"
       );
-      PublishMessage(channel, USER_BINDING_KEY, JSON.stringify(data));
+
+      // PublishMessage(channel, USER_BINDING_KEY, JSON.stringify(data));
+      sendMessage(USER_BINDING_KEY, JSON.stringify(data));
+      sendMessage(ORDER_BINDING_KEY, JSON.stringify(data));
 
       return res.status(200).json(data.data.product);
     } catch (err) {
@@ -89,7 +93,7 @@ module.exports = (app, channel) => {
       );
 
       // PublishCustomerEvent(data);
-      PublishMessage(channel, USER_BINDING_KEY, JSON.stringify(data));
+      // PublishMessage(channel, USER_BINDING_KEY, JSON.stringify(data));
 
       return res.status(200).json(data.data.product);
     } catch (err) {
@@ -107,8 +111,8 @@ module.exports = (app, channel) => {
         "ADD_TO_CART"
       );
 
-      PublishMessage(channel, USER_BINDING_KEY, JSON.stringify(data));
-      PublishMessage(channel, ORDER_BINDING_KEY, JSON.stringify(data));
+      // PublishMessage(channel, USER_BINDING_KEY, JSON.stringify(data));
+      // PublishMessage(channel, ORDER_BINDING_KEY, JSON.stringify(data));
 
       const response = {
         product: data.data.product,
@@ -132,8 +136,8 @@ module.exports = (app, channel) => {
         "REMOVE_FROM_CART"
       );
 
-      PublishMessage(channel, USER_BINDING_KEY, JSON.stringify(data));
-      PublishMessage(channel, ORDER_BINDING_KEY, JSON.stringify(data));
+      // PublishMessage(channel, USER_BINDING_KEY, JSON.stringify(data));
+      // PublishMessage(channel, ORDER_BINDING_KEY, JSON.stringify(data));
 
       const response = {
         product: data.data.product,

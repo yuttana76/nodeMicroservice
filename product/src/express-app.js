@@ -10,7 +10,8 @@ module.exports = async (app, channel) => {
   app.use(express.static(__dirname + "/public"));
 
   //api
-  products(app, channel);
+  // products(app, channel);
+  products(app);
 
   app.use(HandleErrors);
 };

@@ -1,11 +1,13 @@
 const { USER_BINDING_KEY } = require("../config");
 const OrderService = require("../services/order-service");
 const { SubscribeToMessage, PublishMessage } = require("../utils");
+
 const UserAuth = require("./middlewares/auth");
 
 module.exports = (app, channel) => {
   const service = new OrderService();
-  SubscribeToMessage(channel, service);
+
+  // SubscribeToMessage(channel, service);
 
   app.post("/order", UserAuth, async (req, res, next) => {
     const { _id } = req.user;

@@ -4,7 +4,7 @@ const { SubscribeToMessage } = require("../utils");
 
 module.exports = (app, channel) => {
   const service = new UserService();
-  SubscribeToMessage(channel, service);
+  // SubscribeToMessage(channel, service);
 
   app.post("/signup", async (req, res, next) => {
     try {

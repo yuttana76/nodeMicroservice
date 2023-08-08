@@ -10,7 +10,8 @@ module.exports = async (app, channel) => {
   app.use(express.static(__dirname + "/public"));
 
   //api
-  order(app, channel);
+  // order(app, channel);
+  order(app);
 
   app.use(HandleErrors);
 };
