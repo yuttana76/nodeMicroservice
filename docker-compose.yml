@@ -67,6 +67,30 @@ services:
       - user
     ports:
       - "80:80"
+
+  #KONG-config file
+  # kong:
+  #   image: kong
+  #   container_name: kong
+  #   volumes:
+  #     - "./kong/config:/usr/local/kong/declarative"
+  #   environment:
+  #     - KONG_DATABASE=off
+  #     - KONG_DECLARATIVE_CONFIG=/usr/local/kong/declarative/kong.yml
+  #     - KONG_PROXY_ACCESS_LOG=/dev/stdout
+  #     - KONG_ADMIN_ACCESS_LOG=/dev/stdout
+  #     - KONG_PROXY_ERROR_LOG=/dev/stderr
+  #     - KONG_ADMIN_ERROR_LOG=/dev/stderr
+  #     - KONG_ADMIN_LISTEN=0.0.0.0:8001, 0.0.0.0:8444 ssl
+  #     - KONG_LOG_LEVEL=debug
+  #     - KONG_PLUGINS=bundled
+  #   ports:
+  #     - "9000:8000/tcp"
+  #     - "127.0.0.1:7990:8001/tcp"
+  #     - "9001:8001/tcp"
+  #     - "8443:8443/tcp"
+  #     - "127.0.0.1:8444:8444/tcp"
+
  
   # KAFKA
   postgresql:
@@ -140,3 +164,9 @@ services:
 volumes:
   pg_data: {}
   conduktor_data: {}
+  postgres_kong_db:
+  postgres_konga_db:
+
+networks:
+  kong-net:
+    external: true

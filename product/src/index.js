@@ -1,4 +1,5 @@
 const express = require("express");
+const morgan = require("morgan");
 const { PORT } = require("./config");
 const { databaseConnection } = require("./database");
 const expressApp = require("./express-app");
@@ -15,6 +16,7 @@ async function gracefulShutdown(app) {
 
 const StartServer = async () => {
   const app = express();
+  app.use(morgan("common"))
 
   await databaseConnection();
 
@@ -24,6 +26,7 @@ const StartServer = async () => {
 
   // await expressApp(app, channel);
   await expressApp(app);
+
 
   app
     .listen(PORT, () => {
