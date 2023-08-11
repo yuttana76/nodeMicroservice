@@ -27,10 +27,21 @@ gamil
 mongodb compass
 https://www.mongodb.com/try/download/compass
 
-Conduktor
+## Kafka
+:Conduktor
 http://localhost:8080/
 
-# KONG
+docker compose file
+
+```
+CDK_ADMIN_EMAIL: "admin@admin.io"
+CDK_ADMIN_PASSWORD: "admin"
+```
+### tutorial
+https://www.youtube.com/watch?v=6-1N8wIZ1ic&t=257s
+https://www.youtube.com/watch?v=gTwXG8lC2GM
+
+## KONG
 https://www.youtube.com/watch?v=mVxozRoiHPc
 
 Clone project
@@ -60,4 +71,8 @@ kong:2.4-alpine kong migrations bootstrap
 Manage kong
 ```
 http://<server-ip>:1337
+admin
+Abc@123
 ```
+
+127.16.20.140

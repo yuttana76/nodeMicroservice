@@ -1,4 +1,5 @@
 # kong-konga-docker-compose
+https://github.com/Kuari/kong-konga-docker-compose/tree/master
 
 Use the latest version of kong and konga, and do not need to compile, directly pull the official image to run.
 
@@ -82,3 +83,12 @@ https://<your-domain-name>/konga/register#!/services
 ## Official documentation
 
 install kong using docker: https://docs.konghq.com/install/docker/
+
+
+### How to Konga tutorial
+https://www.youtube.com/watch?v=mVxozRoiHPc
+
+### LOCAL (nodeMicroservice)
+http://localhost:1337/#!/login
+admin
+Abc@123
