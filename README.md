@@ -44,6 +44,12 @@ https://www.youtube.com/watch?v=gTwXG8lC2GM
 ## KONG
 https://www.youtube.com/watch?v=mVxozRoiHPc
 
+###
+How to Add a Service, Route and and Plugins Kong API Gateway
+https://www.youtube.com/watch?v=8tniLQgV5xI
+
+https://docs.konghq.com/gateway/latest/get-started/services-and-routes/
+
 ### tutorial
 https://wisdomgoody.medium.com/%E0%B8%A1%E0%B8%B2%E0%B8%A5%E0%B8%AD%E0%B8%87%E0%B9%80%E0%B8%A5%E0%B9%88%E0%B8%99-kong-%E0%B8%94%E0%B9%89%E0%B8%A7%E0%B8%A2-konga-%E0%B8%81%E0%B8%B1%E0%B8%99-%E0%B9%81%E0%B8%A5%E0%B9%89%E0%B8%A7%E0%B8%88%E0%B8%B0%E0%B8%A3%E0%B8%B9%E0%B9%89%E0%B8%A7%E0%B9%88%E0%B8%B2-kong-%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B9%84%E0%B8%94%E0%B9%89%E0%B8%A1%E0%B8%B5%E0%B8%94%E0%B8%B5%E0%B9%81%E0%B8%84%E0%B9%88%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%99-api-gateway-%E0%B8%97%E0%B8%B1%E0%B9%88%E0%B8%A7%E0%B9%86%E0%B9%84%E0%B8%9B-%E0%B8%95%E0%B8%AD%E0%B8%99%E0%B8%97%E0%B8%B5%E0%B9%88-1-17185899e1d0
 

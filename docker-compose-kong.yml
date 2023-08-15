@@ -57,18 +57,16 @@ services:
     environment:
       KAFKA_MESSAGE_BROKER_URL: "host.docker.internal:29092"
       
-  nginx-proxy:
-    build:
-      dockerfile: Dockerfile
-      context: ./proxy
-    volumes:
-      - ./proxy/nginx.conf:/etc/nginx/nginx.conf
-    depends_on:
-      - product
-      - order
-      - user
-    ports:
-      - "80:80"
+  # nginx-proxy:
+  #   build:
+  #     dockerfile: Dockerfile
+  #     context: ./proxy
+  #   depends_on:
+  #     - product
+  #     - order
+  #     - user
+  #   ports:
+  #     - "80:80"
  
   # KAFKA
   postgresql:
@@ -139,7 +137,98 @@ services:
     depends_on:
       - zoo1
 
+  # KONG-config file
+  # kong:
+  #   image: kong
+  #   container_name: kong
+  #   volumes:
+  #     - "./kong/config:/usr/local/kong/declarative"
+  #   environment:
+  #     - KONG_DATABASE=off
+  #     - KONG_DECLARATIVE_CONFIG=/usr/local/kong/declarative/kong.yml
+  #     - KONG_PROXY_ACCESS_LOG=/dev/stdout
+  #     - KONG_ADMIN_ACCESS_LOG=/dev/stdout
+  #     - KONG_PROXY_ERROR_LOG=/dev/stderr
+  #     - KONG_ADMIN_ERROR_LOG=/dev/stderr
+  #     - KONG_ADMIN_LISTEN=0.0.0.0:8001, 0.0.0.0:8444 ssl
+  #     - KONG_LOG_LEVEL=debug
+  #     - KONG_PLUGINS=bundled
+  #   ports:
+  #     - "9000:8000/tcp"
+  #     - "127.0.0.1:7990:8001/tcp"
+  #     - "9001:8001/tcp"
+  #     - "8443:8443/tcp"
+  #     - "127.0.0.1:8444:8444/tcp"
+
+# Kong API gateway
+  kong-database:
+    image: postgres:9.6
+    container_name: kong-database
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=kong
+      - POSTGRES_DB=kong
+      - POSTGRES_PASSWORD=kong
+    volumes:
+      - ./config/db-data-kong-postgres:/var/lib/postgresql/data
+
+  kong-migrations:
+    image: kong
+    environment:
+      - KONG_DATABASE=postgres
+      - KONG_PG_HOST=kong-database
+      - KONG_PG_PASSWORD=kong
+      - KONG_CASSANDRA_CONTACT_POINTS=kong-database
+    command: kong migrations bootstrap
+    restart: on-failure
+    depends_on:
+      - kong-database
+
+  kong:
+    image: kong
+    container_name: kong
+    environment:
+      - LC_CTYPE=en_US.UTF-8
+      - LC_ALL=en_US.UTF-8
+      - KONG_DATABASE=postgres
+      - KONG_PG_HOST=kong-database
+      - KONG_PG_USER=kong
+      - KONG_PG_PASSWORD=kong
+      - KONG_CASSANDRA_CONTACT_POINTS=kong-database
+      - KONG_PROXY_ACCESS_LOG=/dev/stdout
+      - KONG_ADMIN_ACCESS_LOG=/dev/stdout
+      - KONG_PROXY_ERROR_LOG=/dev/stderr
+      - KONG_ADMIN_ERROR_LOG=/dev/stderr
+      - KONG_ADMIN_LISTEN=0.0.0.0:8001, 0.0.0.0:8444 ssl
+    restart: on-failure
+    ports:
+      - 8000:8000
+      - 8443:8443
+      - 127.0.0.1:7999:8001
+      # - 8444:8444
+    links:
+      - kong-database:kong-database
+    depends_on:
+      - kong-migrations
+
+  konga:
+    image: pantsel/konga
+    ports:
+      - 1337:1337
+    links:
+      - kong:kong
+    container_name: konga
+    environment:
+      - NODE_ENV=production
+    volumes: 
+      - ./config/konga-vol:/app/kongadata
+
 volumes:
   conduktor_data:
   conduktor_pg_data:
-  nginx.conf:
+
+networks:
+  default:
+    name: kong-net
+    external: true

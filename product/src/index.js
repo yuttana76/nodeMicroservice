@@ -27,7 +27,6 @@ const StartServer = async () => {
   // await expressApp(app, channel);
   await expressApp(app);
 
-
   app
     .listen(PORT, () => {
       console.log(`product listening to port ${PORT}`);
